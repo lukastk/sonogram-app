@@ -16,7 +16,7 @@ import matplotlib.pyplot as plt
 # 
 # Darauf folgt eine Angabe darüber wie groß der folgende Datensatz ist (unsigned long = 4 Byte). In unserem Fall sind es 83344800 Bytes.
 
-f = open("leberExport.vol1.vol","r") # Öffne die Datei
+f = open("data/leberExport.vol1.vol","r") # Öffne die Datei
 f.read(291) # Überspringe die ersten 291 Bytes
 
 data       = f.read(2) # Schlüsselwort / Tag
