@@ -61,6 +61,7 @@ def extract_slice(camera_cor, camera_view_axis, camera_head_axis, camera_side_ax
 
     plt.pcolormesh(slice_data,cmap=plt.cm.Greys_r) #plotten
     plt.savefig(file_name + ".png") #Plot speichern
+    plt.close()
 
 def rotation_matrix(axis, theta):
     """
