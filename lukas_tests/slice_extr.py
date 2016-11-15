@@ -28,6 +28,8 @@ data_size_z = 616.0
 
 corner_offset = np.array( [ data_size_x / 2, data_size_y / 2, data_size_z /2 ] )
 
+
+
 # Right hand rule
 def get_normalized_cross_product(a, b):
     #return [ a[2]*b[3] - a[3]*b[2], a[3]*b[1] - a[1]*b[3], a[1]*b[2] - a[2]*b[1] ]
@@ -35,12 +37,15 @@ def get_normalized_cross_product(a, b):
     return c / np.linalg.norm(c)
 
 def extract_value_from_data(vec):
-    if (vec[0] >= 0 and vec[0] < data_size_x) and (vec[1] >= 0 and vec[1] < data_size_y) and (vec[2] >= 0 and vec[2] < data_size_z):
-        return VOLUME[int(vec[0]), int(vec[1]), int(vec[2])]
+    x, y, z = map(int, map(round, vec))
+
+    if (x >= 0 and x < data_size_x) and (y >= 0 and y < data_size_y) and (z >= 0 and z < data_size_z):
+        return VOLUME[z, y, x]
     else:
         return 0
 
 def extract_slice(camera_cor, camera_view_axis, camera_head_axis, camera_side_axis, camera_depth, slice_w, slice_h, slice_res, file_name):
+
     corner_top_left = - camera_side_axis * (slice_w/2) + camera_head_axis * (slice_h/2) + camera_cor + camera_view_axis*camera_depth
     vec_step_right = camera_side_axis * slice_res
     vec_step_down = - camera_head_axis * slice_res
@@ -86,9 +91,9 @@ def get_rotated_camera(view, head, side, axis, theta):
 # the slice plane is the same plane but displaced a distance camera_depth in the
 # direction of the view axis.
 
-camera_cor = np.array([0, 0, 350])
-camera_view_axis = np.array([0, 0, -1])
-camera_head_axis = np.array([0, 1, 0])
+camera_cor = np.array([0, 0, 350.0])
+camera_view_axis = np.array([0, 0, -1.0])
+camera_head_axis = np.array([0, 1.0, 0])
 camera_side_axis = get_normalized_cross_product(camera_view_axis, camera_head_axis)
 
 camera_depth = 300.0
@@ -102,7 +107,7 @@ file_name = "output/slice"
 
 start_angle = -math.pi/3
 end_angle = math.pi/3
-steps = 10
+steps = 1000
 d_theta = (end_angle - start_angle) / steps
 
 camera_view_axis, camera_head_axis, camera_side_axis = get_rotated_camera(camera_view_axis, camera_head_axis, camera_side_axis, camera_side_axis, start_angle)
