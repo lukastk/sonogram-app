@@ -173,7 +173,7 @@ public class SonogramSimulator {
         if  ( (x >= 0 && x < data_size_x) &&
                 (y >= 0 && y < data_size_y) &&
                 (z >= 0 && z < data_size_z) ) {
-            return sono_data[z][y][x];
+            return sonogram_data[z][y][x];
         } else {
             System.out.println("@@@@@");
             return 0;
